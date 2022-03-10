@@ -35,13 +35,16 @@ select {
 .container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-gap: 1rem;
+}
+
+.win {
+    background-color: rgb(101, 151, 26) !important;
 }
 
 .container > div {
     background-color: #4e4e50;
-    grid-area: auto;
     height: 7rem;
     width: 7rem;
     display: flex;
@@ -52,7 +55,21 @@ select {
     color: #c3073f;
 }
 
+.container > div:hover {
+    cursor: pointer;
+}
+
+#reset {
+    grid-column: span 3;
+    background-color: rgb(165, 160, 170);
+    height: 3rem;
+    width: auto;
+    font-size: 2rem;
+    align-self: center;
+}
+
 footer {
     font-size: large;
     color: #c3073f;
 }
+
