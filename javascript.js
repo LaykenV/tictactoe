@@ -51,7 +51,7 @@ const compE = (() => {
 })();
 
 const compH = (() => {
-    
+
 })();
 
 const gameFlow = (() => {
@@ -69,7 +69,7 @@ const gameFlow = (() => {
     const gameEnd = function() {
         let gameWon = false;
         let compWon = false;
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i <= 7; i++) {
             const winCondition = winningConditions[i];
             const a = board[winCondition[0]];
             const b = board[winCondition[1]];
