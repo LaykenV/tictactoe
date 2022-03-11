@@ -9,7 +9,16 @@ const square8 = document.querySelector(".square8");
 const square9 = document.querySelector(".square9");
 const resetBtn = document.querySelector("#reset");
 const board = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
-
+let tie = false;
+const diffuculty = document.querySelector("#diffuculty");
+let diff = function() {
+    if (diffuculty.value == "easy") {
+        return compE.getRandom();
+    }
+    else if (diffuculty.value == "hard") {
+        return compH.play();
+    }
+}
 
 const player = (() => {
     const s1 = () => square1.innerHTML = "X";
@@ -36,12 +45,13 @@ const player = (() => {
 
 const compE = (() => {
     let getRandom = function () {
+        let tie = false;
         let randomSquare = board[Math.floor(Math.random() * board.length)];
         if (randomSquare.innerHTML == "") {
             randomSquare.innerHTML = "O";
         }
         else if (board[0].innerHTML && board[1].innerHTML && board[2].innerHTML && board[3].innerHTML && board[4].innerHTML && board[5].innerHTML && board[6].innerHTML && board[7].innerHTML && board[8].innerHTML !== "") {
-            alert("tie");
+            return null;
         }
         else {
             getRandom();
@@ -50,8 +60,21 @@ const compE = (() => {
     return { getRandom }
 })();
 
-const compH = (() => {
 
+const compH = (() => {
+    
+    const play = function() {
+        let corners = [0, 2, 6, 8]
+        if (board[4].innerHTML == "") {
+           return board[4].innerHTML = "O";
+        }
+        
+        
+        else {compE.getRandom()};
+    }
+
+    return {play}
+            
 })();
 
 const gameFlow = (() => {
@@ -69,6 +92,8 @@ const gameFlow = (() => {
     const gameEnd = function() {
         let gameWon = false;
         let compWon = false;
+        let turns = 0;
+        turns++;
         for (let i = 0; i <= 7; i++) {
             const winCondition = winningConditions[i];
             const a = board[winCondition[0]];
@@ -82,7 +107,7 @@ const gameFlow = (() => {
                 c.classList.add("win");
                 for (let i = 0; i < board.length; i++) {
                     const element = board[i];
-                    if (element.innerHTML == "O") {
+                    if (element !== a && element !== b && element !== c) {
                         element.innerHTML = "";
                     }
                     
@@ -95,7 +120,7 @@ const gameFlow = (() => {
                 c.classList.add("win");
                 for (let i = 0; i < board.length; i++) {
                     const element = board[i];
-                    if (element.innerHTML == "X") {
+                    if (element !== a && element !== b && element !== c) {
                         element.innerHTML = "";
                     }
                     
@@ -108,8 +133,16 @@ const gameFlow = (() => {
         }
         if (compWon == true && gameWon == false) {
             alert("You lose to the computer! Haha")
+        
+        }
+        if (turns == 9) {
+            return tie = true;
+        }
+        else if (compWon == false && gameWon == false && tie == true) {
+            alert("tie");
         }
     }
+
 
     return {gameEnd};
 
@@ -118,7 +151,7 @@ const gameFlow = (() => {
 square1.addEventListener("click", function () {
     if (square1.innerHTML == "") {
         player.s1();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
 
     };
@@ -127,7 +160,7 @@ square1.addEventListener("click", function () {
 square2.addEventListener("click", function () {
     if (square2.innerHTML == "") {
         player.s2();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -135,7 +168,7 @@ square2.addEventListener("click", function () {
 square3.addEventListener("click", function () {
     if (square3.innerHTML == "") {
         player.s3();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -143,7 +176,7 @@ square3.addEventListener("click", function () {
 square4.addEventListener("click", function () {
     if (square4.innerHTML == "") {
         player.s4();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -151,7 +184,7 @@ square4.addEventListener("click", function () {
 square5.addEventListener("click", function () {
     if (square5.innerHTML == "") {
         player.s5();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -159,7 +192,7 @@ square5.addEventListener("click", function () {
 square6.addEventListener("click", function () {
     if (square6.innerHTML == "") {
         player.s6();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -167,7 +200,7 @@ square6.addEventListener("click", function () {
 square7.addEventListener("click", function () {
     if (square7.innerHTML == "") {
         player.s7();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -175,7 +208,7 @@ square7.addEventListener("click", function () {
 square8.addEventListener("click", function () {
     if (square8.innerHTML == "") {
         player.s8();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
@@ -183,7 +216,7 @@ square8.addEventListener("click", function () {
 square9.addEventListener("click", function () {
     if (square9.innerHTML == "") {
         player.s9();
-        compE.getRandom();
+        diff();
         gameFlow.gameEnd();
     };
 });
