@@ -67,7 +67,7 @@ const compH = (() => {
         let corners = [0, 2, 6, 8]
         if (board[4].innerHTML == "") {
            return board[4].innerHTML = "O";
-        }
+        };
         
         
         else {compE.getRandom()};
